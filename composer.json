@@ -1,0 +1,39 @@
+{
+    "name": "adrorocker/tinycache",
+    "description": "A simple library to cache assets and html page",
+    "license": "MIT",
+    "keywords": ["cache", "php", "opensource", "psr-6", "adrorocker"],
+    "homepage": "https://github.com/adrorocker/tinycache",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Adro Rocker",
+            "email": "alejandro.morelos@jarwebdev.com",
+            "homepage": "https://github.com/adrorocker"
+        }
+    ],
+    "require": {
+        "php": ">= 5.6",
+        "psr/cache": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.6.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "TinyCache\\": ["src/"]
+        },
+        "files": [
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TinyCache\\": ["tests/"]
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}
