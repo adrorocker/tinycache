@@ -21,14 +21,14 @@
     },
     "autoload": {
         "psr-4": {
-            "TinyCache\\": ["src/"]
+            "TinyCache\\": ["src/","tests/"]
         },
         "files": [
         ]
     },
     "autoload-dev": {
         "psr-4": {
-            "TinyCache\\": ["tests/"]
+            "TinyCache\\": ["src/","tests/"]
         }
     },
     "extra": {
