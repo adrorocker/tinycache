@@ -6,18 +6,30 @@
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
-namespace TinyCache;
+namespace TinyCache\Adapter;
 
 use Psr\Cache\CacheItemInterface;
-use TinyCache\Adapter\AbstractAdapter;
+use TinyCache\Collection;
+use TinyCache\Item;
+use TinyCache\Hash;
 
-class Cache
+class FilesystemAdapter extends AbstractAdapter
 {
-    protected $adapter;
+    protected $directory;
 
-    public function __construct(AbstractAdapter $adapter)
+    protected $collection;
+
+    public function __construct($directory = null)
     {
-        $this->adapter = $adapter;
+        $this->directory = $directory;
+
+        if (!$directory) {
+            $this->directory = sys_get_temp_dir().'/tiny-cache';
+            if (!file_exists($this->directory)) {
+               @mkdir($this->directory, 0777, true);
+            }
+        }
+        $this->collection = new Collection;
     }
 
     /**
@@ -38,7 +50,19 @@ class Cache
      */
     public function getItem($key)
     {
-        return $this->adapter->getItem($key);
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->directory, \FilesystemIterator::SKIP_DOTS)) as $file) {
+            if ($file->isDir()) {
+                continue;
+            }
+            if (strpos($file->getFilename(),$key) === 0) {
+                $parts = explode('-', $file->getFilename());
+                if ($parts[0] === $key) {
+                    return new Item($key,file_get_contents($file->getRealPath()));
+                }
+            }
+        }
+
+        return new Item();
     }
 
     /**
@@ -59,7 +83,15 @@ class Cache
      */
     public function getItems(array $keys = [])
     {
-        return $this->adapter->getItems($keys);
+        $collection = new Collection;
+        foreach ($keys as $key) {
+            $item = $this->getItem($key);
+            if ($item->isHit()) {
+                $collection->set($item->getKey(), $item);
+            }
+        }
+
+        return $collection;
     }
 
     /**
@@ -81,7 +113,7 @@ class Cache
      */
     public function hasItem($key)
     {
-        return $this->adapter->hasItem($key);
+
     }
 
     /**
@@ -92,7 +124,11 @@ class Cache
      */
     public function clear()
     {
-        return $this->adapter->clear();
+        $ok = true;
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->directory, \FilesystemIterator::SKIP_DOTS)) as $file) {
+            $ok = ($file->isDir() || @unlink($file) || !file_exists($file)) && $ok;
+        }
+        return $ok;
     }
 
     /**
@@ -110,7 +146,17 @@ class Cache
      */
     public function deleteItem($key)
     {
-        return $this->adapter->deleteItem($key);
+        foreach (new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($this->directory, \FilesystemIterator::SKIP_DOTS)) as $file) {
+            if ($file->isDir()) {
+                continue;
+            }
+            if (strpos($file->getFilename(),$key) === 0) {
+                $parts = explode('-', $file->getFilename());
+                if ($parts[0] === $key) {
+                    return (!file_exists($file->getRealPath()) || @unlink($file->getRealPath()) || !file_exists($file->getRealPath()));
+                }
+            }
+        }
     }
 
     /**
@@ -128,7 +174,11 @@ class Cache
      */
     public function deleteItems(array $keys)
     {
-        return $this->adapter->deleteItems($keys);
+        $ok = true;
+        foreach ($keys as $key) {
+            $ok = $this->deleteItem($key) && $ok;
+        }
+        return $ok;
     }
 
     /**
@@ -142,7 +192,15 @@ class Cache
      */
     public function save(CacheItemInterface $item)
     {
-        return $this->adapter->save($item);
+        $name = $item->getKey().'-'.Hash::string($item->get());
+
+        $path = $this->directory . DIRECTORY_SEPARATOR . $name;
+
+        if (false === @file_put_contents($path, $item->get())) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -156,7 +214,9 @@ class Cache
      */
     public function saveDeferred(CacheItemInterface $item)
     {
-        return $this->adapter->saveDeferred($item);
+        $this->collection->set($item->getKey(), $item);
+
+        return $this;
     }
 
     /**
@@ -167,6 +227,10 @@ class Cache
      */
     public function commit()
     {
-        return $this->adapter->commit();
+        $ok = true;
+        foreach ($this->collection->all() as $key => $item) {
+            $ok = $this->save($item) && $ok;
+        }
+        return $ok;
     }
 }

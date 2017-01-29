@@ -6,20 +6,13 @@
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
-namespace TinyCache;
+namespace TinyCache\Adapter;
 
 use Psr\Cache\CacheItemInterface;
-use TinyCache\Adapter\AbstractAdapter;
+use Psr\Cache\CacheItemPoolInterface;
 
-class Cache
+abstract class AbstractAdapter implements CacheItemPoolInterface
 {
-    protected $adapter;
-
-    public function __construct(AbstractAdapter $adapter)
-    {
-        $this->adapter = $adapter;
-    }
-
     /**
      * Returns a Cache Item representing the specified key.
      *
@@ -36,10 +29,7 @@ class Cache
      * @return CacheItemInterface
      *   The corresponding Cache Item.
      */
-    public function getItem($key)
-    {
-        return $this->adapter->getItem($key);
-    }
+    abstract public function getItem($key);
 
     /**
      * Returns a traversable set of cache items.
@@ -57,10 +47,7 @@ class Cache
      *   key is not found. However, if no keys are specified then an empty
      *   traversable MUST be returned instead.
      */
-    public function getItems(array $keys = [])
-    {
-        return $this->adapter->getItems($keys);
-    }
+    abstract public function getItems(array $keys = []);
 
     /**
      * Confirms if the cache contains specified cache item.
@@ -79,10 +66,7 @@ class Cache
      * @return bool
      *   True if item exists in the cache, false otherwise.
      */
-    public function hasItem($key)
-    {
-        return $this->adapter->hasItem($key);
-    }
+    abstract public function hasItem($key);
 
     /**
      * Deletes all items in the pool.
@@ -90,10 +74,7 @@ class Cache
      * @return bool
      *   True if the pool was successfully cleared. False if there was an error.
      */
-    public function clear()
-    {
-        return $this->adapter->clear();
-    }
+    abstract public function clear();
 
     /**
      * Removes the item from the pool.
@@ -108,10 +89,7 @@ class Cache
      * @return bool
      *   True if the item was successfully removed. False if there was an error.
      */
-    public function deleteItem($key)
-    {
-        return $this->adapter->deleteItem($key);
-    }
+    abstract public function deleteItem($key);
 
     /**
      * Removes multiple items from the pool.
@@ -126,10 +104,7 @@ class Cache
      * @return bool
      *   True if the items were successfully removed. False if there was an error.
      */
-    public function deleteItems(array $keys)
-    {
-        return $this->adapter->deleteItems($keys);
-    }
+    abstract public function deleteItems(array $keys);
 
     /**
      * Persists a cache item immediately.
@@ -140,10 +115,7 @@ class Cache
      * @return bool
      *   True if the item was successfully persisted. False if there was an error.
      */
-    public function save(CacheItemInterface $item)
-    {
-        return $this->adapter->save($item);
-    }
+    abstract public function save(CacheItemInterface $item);
 
     /**
      * Sets a cache item to be persisted later.
@@ -154,10 +126,7 @@ class Cache
      * @return bool
      *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
-    public function saveDeferred(CacheItemInterface $item)
-    {
-        return $this->adapter->saveDeferred($item);
-    }
+    abstract public function saveDeferred(CacheItemInterface $item);
 
     /**
      * Persists any deferred cache items.
@@ -165,8 +134,5 @@ class Cache
      * @return bool
      *   True if all not-yet-saved items were successfully saved or there were none. False otherwise.
      */
-    public function commit()
-    {
-        return $this->adapter->commit();
-    }
+    abstract public function commit();
 }
