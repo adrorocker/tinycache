@@ -24,7 +24,7 @@ class FilesystemAdapter extends AbstractAdapter
         $this->directory = $directory;
 
         if (!$directory) {
-            $this->directory = sys_get_temp_dir().'/tiny-cache';
+            $this->directory = sys_get_temp_dir().DIRECTORY_SEPARATOR.'tiny-cache';
             if (!file_exists($this->directory)) {
                @mkdir($this->directory, 0777, true);
             }
