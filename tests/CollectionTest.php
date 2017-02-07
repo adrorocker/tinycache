@@ -1,15 +1,16 @@
 <?php
 /**
- * TinyCache
+ * TinyCache.
  *
  * @link      https://github.com/adrorocker/tinycache
+ *
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
+
 namespace TinyCache;
 
 use PHPUnit\Framework\TestCase;
-use TinyCache\Collection;
 
 class CollectionTest extends TestCase
 {
@@ -28,7 +29,7 @@ class CollectionTest extends TestCase
         $collection->offsetExists('key');
         $collection->offsetGet('key');
         $collection->remove('key');
-        $collection->offsetSet('key','value');
+        $collection->offsetSet('key', 'value');
         $one = $collection->count();
         $this->assertSame(1, $one);
 

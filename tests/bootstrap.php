@@ -1,8 +1,9 @@
 <?php
 /**
- * TinyCache
+ * TinyCache.
  *
  * @link      https://github.com/adrorocker/php-firebase
+ *
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
@@ -15,4 +16,5 @@ if ((!$loader = includeIfExists(__DIR__.'/../vendor/autoload.php')) && (!$loader
         'See https://getcomposer.org/download/ for instructions on installing Composer'.PHP_EOL;
     exit(1);
 }
+
 return $loader;

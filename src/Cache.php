@@ -1,11 +1,13 @@
 <?php
 /**
- * TinyCache
+ * TinyCache.
  *
  * @link      https://github.com/adrorocker/tinycache
+ *
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
+
 namespace TinyCache;
 
 use Psr\Cache\CacheItemInterface;
@@ -27,14 +29,14 @@ class Cache
      * a cache miss. It MUST NOT return null.
      *
      * @param string $key
-     *   The key for which to return the corresponding Cache Item.
+     *                    The key for which to return the corresponding Cache Item.
      *
      * @throws InvalidArgumentException
-     *   If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
-     *   MUST be thrown.
+     *                                  If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
+     *                                  MUST be thrown.
      *
      * @return CacheItemInterface
-     *   The corresponding Cache Item.
+     *                            The corresponding Cache Item.
      */
     public function getItem($key)
     {
@@ -45,17 +47,17 @@ class Cache
      * Returns a traversable set of cache items.
      *
      * @param string[] $keys
-     *   An indexed array of keys of items to retrieve.
+     *                       An indexed array of keys of items to retrieve.
      *
      * @throws InvalidArgumentException
-     *   If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
-     *   MUST be thrown.
+     *                                  If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
+     *                                  MUST be thrown.
      *
      * @return array|\Traversable
-     *   A traversable collection of Cache Items keyed by the cache keys of
-     *   each item. A Cache item will be returned for each key, even if that
-     *   key is not found. However, if no keys are specified then an empty
-     *   traversable MUST be returned instead.
+     *                            A traversable collection of Cache Items keyed by the cache keys of
+     *                            each item. A Cache item will be returned for each key, even if that
+     *                            key is not found. However, if no keys are specified then an empty
+     *                            traversable MUST be returned instead.
      */
     public function getItems(array $keys = [])
     {
@@ -70,14 +72,14 @@ class Cache
      * such situation use CacheItemInterface::isHit() instead.
      *
      * @param string $key
-     *   The key for which to check existence.
+     *                    The key for which to check existence.
      *
      * @throws InvalidArgumentException
-     *   If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
-     *   MUST be thrown.
+     *                                  If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
+     *                                  MUST be thrown.
      *
      * @return bool
-     *   True if item exists in the cache, false otherwise.
+     *              True if item exists in the cache, false otherwise.
      */
     public function hasItem($key)
     {
@@ -88,7 +90,7 @@ class Cache
      * Deletes all items in the pool.
      *
      * @return bool
-     *   True if the pool was successfully cleared. False if there was an error.
+     *              True if the pool was successfully cleared. False if there was an error.
      */
     public function clear()
     {
@@ -99,14 +101,14 @@ class Cache
      * Removes the item from the pool.
      *
      * @param string $key
-     *   The key to delete.
+     *                    The key to delete.
      *
      * @throws InvalidArgumentException
-     *   If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
-     *   MUST be thrown.
+     *                                  If the $key string is not a legal value a \Psr\Cache\InvalidArgumentException
+     *                                  MUST be thrown.
      *
      * @return bool
-     *   True if the item was successfully removed. False if there was an error.
+     *              True if the item was successfully removed. False if there was an error.
      */
     public function deleteItem($key)
     {
@@ -120,11 +122,11 @@ class Cache
      *   An array of keys that should be removed from the pool.
 
      * @throws InvalidArgumentException
-     *   If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
-     *   MUST be thrown.
+     *                                  If any of the keys in $keys are not a legal value a \Psr\Cache\InvalidArgumentException
+     *                                  MUST be thrown.
      *
      * @return bool
-     *   True if the items were successfully removed. False if there was an error.
+     *              True if the items were successfully removed. False if there was an error.
      */
     public function deleteItems(array $keys)
     {
@@ -135,10 +137,10 @@ class Cache
      * Persists a cache item immediately.
      *
      * @param CacheItemInterface $item
-     *   The cache item to save.
+     *                                 The cache item to save.
      *
      * @return bool
-     *   True if the item was successfully persisted. False if there was an error.
+     *              True if the item was successfully persisted. False if there was an error.
      */
     public function save(CacheItemInterface $item)
     {
@@ -149,10 +151,10 @@ class Cache
      * Sets a cache item to be persisted later.
      *
      * @param CacheItemInterface $item
-     *   The cache item to save.
+     *                                 The cache item to save.
      *
      * @return bool
-     *   False if the item could not be queued or if a commit was attempted and failed. True otherwise.
+     *              False if the item could not be queued or if a commit was attempted and failed. True otherwise.
      */
     public function saveDeferred(CacheItemInterface $item)
     {
@@ -163,7 +165,7 @@ class Cache
      * Persists any deferred cache items.
      *
      * @return bool
-     *   True if all not-yet-saved items were successfully saved or there were none. False otherwise.
+     *              True if all not-yet-saved items were successfully saved or there were none. False otherwise.
      */
     public function commit()
     {
