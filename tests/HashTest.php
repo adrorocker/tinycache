@@ -1,15 +1,16 @@
 <?php
 /**
- * TinyCache
+ * TinyCache.
  *
  * @link      https://github.com/adrorocker/tinycache
+ *
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
+
 namespace TinyCache;
 
 use PHPUnit\Framework\TestCase;
-use TinyCache\Hash;
 
 class HashTest extends TestCase
 {
@@ -23,7 +24,7 @@ class HashTest extends TestCase
         $file = $dir.DIRECTORY_SEPARATOR.'hola.txt';
 
         file_put_contents($dir.DIRECTORY_SEPARATOR.'hola.txt', 'hola');
-        
+
         $hash = Hash::fileSha1($dir.DIRECTORY_SEPARATOR.'hola.txt');
 
         @unlink($file);

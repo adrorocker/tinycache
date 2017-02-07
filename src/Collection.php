@@ -1,11 +1,13 @@
 <?php
 /**
- * TinyCache
+ * TinyCache.
  *
  * @link      https://github.com/adrorocker/tinycache
+ *
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
+
 namespace TinyCache;
 
 use ArrayIterator;
@@ -13,13 +15,14 @@ use ArrayIterator;
 class Collection implements \ArrayAccess
 {
     /**
-     * The source data
+     * The source data.
      *
      * @var array
      */
     protected $data = [];
+
     /**
-     * Create new collection
+     * Create new collection.
      *
      * @param array $items Pre-populate collection with this key-value array
      */
@@ -29,7 +32,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Set collection item
+     * Set collection item.
      *
      * @param string $key   The data key
      * @param mixed  $value The data value
@@ -40,7 +43,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Get collection item for key
+     * Get collection item for key.
      *
      * @param string $key     The data key
      * @param mixed  $default The default value to return if data key does not exist
@@ -53,7 +56,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Add item to collection, replacing existing items with the same data key
+     * Add item to collection, replacing existing items with the same data key.
      *
      * @param array $items Key-value array of data to append to this collection
      */
@@ -65,7 +68,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Get all items in collection
+     * Get all items in collection.
      *
      * @return array The collection's source data
      */
@@ -75,7 +78,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Get collection keys
+     * Get collection keys.
      *
      * @return array The collection's source data keys
      */
@@ -97,7 +100,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Remove item from collection
+     * Remove item from collection.
      *
      * @param string $key The data key
      */
@@ -107,7 +110,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Remove all items from collection
+     * Remove all items from collection.
      */
     public function clear()
     {
@@ -117,7 +120,7 @@ class Collection implements \ArrayAccess
     /**
      * Does this collection have a given key?
      *
-     * @param  string $key The data key
+     * @param string $key The data key
      *
      * @return bool
      */
@@ -127,7 +130,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Get collection item for key
+     * Get collection item for key.
      *
      * @param string $key The data key
      *
@@ -139,7 +142,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Set collection item
+     * Set collection item.
      *
      * @param string $key   The data key
      * @param mixed  $value The data value
@@ -150,7 +153,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Remove item from collection
+     * Remove item from collection.
      *
      * @param string $key The data key
      */
@@ -160,7 +163,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Get number of items in collection
+     * Get number of items in collection.
      *
      * @return int
      */
@@ -170,7 +173,7 @@ class Collection implements \ArrayAccess
     }
 
     /**
-     * Get collection iterator
+     * Get collection iterator.
      *
      * @return \ArrayIterator
      */

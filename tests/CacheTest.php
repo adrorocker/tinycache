@@ -1,33 +1,32 @@
 <?php
 /**
- * TinyCache
+ * TinyCache.
  *
  * @link      https://github.com/adrorocker/tinycache
+ *
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
+
 namespace TinyCache;
 
 use PHPUnit\Framework\TestCase;
-use TinyCache\Cache;
-use TinyCache\Item;
-use TinyCache\Collection;
 use TinyCache\Adapter\FilesystemAdapter;
 
 class CacheTest extends TestCase
 {
     public function testTinyCache()
     {
-        $adapter = new FilesystemAdapter;
+        $adapter = new FilesystemAdapter();
         $this->assertInstanceOf('TinyCache\Adapter\FilesystemAdapter', $adapter);
 
         $cache = new Cache($adapter);
         $this->assertInstanceOf('TinyCache\Cache', $cache);
 
-        $item1 = new Item('hi1','Hola');
+        $item1 = new Item('hi1', 'Hola');
         $this->assertInstanceOf('TinyCache\Item', $item1);
 
-        $item2 = new Item('hi2','Hola');
+        $item2 = new Item('hi2', 'Hola');
         $this->assertInstanceOf('TinyCache\Item', $item2);
 
         $cache->saveDeferred($item1);
@@ -36,7 +35,7 @@ class CacheTest extends TestCase
 
         $cache->save($item2);
 
-        $items = $cache->getItems(['hi1','hi2']);
+        $items = $cache->getItems(['hi1', 'hi2']);
         $this->assertInstanceOf('TinyCache\Collection', $items);
 
         $getItem = $cache->getItem('hi1');

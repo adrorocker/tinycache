@@ -1,21 +1,22 @@
 <?php
 /**
- * TinyCache
+ * TinyCache.
  *
  * @link      https://github.com/adrorocker/tinycache
+ *
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
  */
+
 namespace TinyCache;
 
 use PHPUnit\Framework\TestCase;
-use TinyCache\Item;
 
 class ItemTest extends TestCase
 {
     public function testItem()
     {
-        $item = new Item('key1','Hola');
+        $item = new Item('key1', 'Hola');
         $this->assertInstanceOf('TinyCache\Item', $item);
 
         $key = $item->getKey();
