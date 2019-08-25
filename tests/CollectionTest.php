@@ -10,6 +10,7 @@
 
 namespace TinyCache;
 
+use ArrayIterator;
 use PHPUnit\Framework\TestCase;
 
 class CollectionTest extends TestCase
@@ -17,7 +18,7 @@ class CollectionTest extends TestCase
     public function testCollection()
     {
         $collection = new Collection(['key'=>'value']);
-        $this->assertInstanceOf('TinyCache\Collection', $collection);
+        $this->assertInstanceOf(Collection::class, $collection);
 
         $value = $collection->get('key');
         $this->assertSame('value', $value);
@@ -34,7 +35,7 @@ class CollectionTest extends TestCase
         $this->assertSame(1, $one);
 
         $iterator = $collection->getIterator();
-        $this->assertInstanceOf('ArrayIterator', $iterator);
+        $this->assertInstanceOf(ArrayIterator::class, $iterator);
 
         $collection->offsetUnset('key');
         $collection->clear();

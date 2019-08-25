@@ -15,14 +15,21 @@ use TinyCache\Adapter\FilesystemAdapter;
 
 class FilesystemAdapterTest extends TestCase
 {
+    protected $dir;
+
+    protected function setUp()
+    {
+        if (file_exists($this->dir)) {
+            @rmdir($this->dir);
+        }
+    }
+
     public function testFilesystemAdapter()
     {
-        $dir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'tiny-cache';
-        if (file_exists($dir)) {
-            @rmdir($dir);
-        }
+        $this->dir = sys_get_temp_dir().DIRECTORY_SEPARATOR.'tiny-cache';
+
         $adapter = new FilesystemAdapter();
-        $this->assertInstanceOf('TinyCache\Adapter\FilesystemAdapter', $adapter);
+        $this->assertInstanceOf(FilesystemAdapter::class, $adapter);
 
         $item1 = new Item('hi1', 'Hola');
         $item2 = new Item('hi2', 'Hola');
@@ -36,10 +43,10 @@ class FilesystemAdapterTest extends TestCase
         $adapter->save($item3);
 
         $items = $adapter->getItems(['hi1', 'hi2']);
-        $this->assertInstanceOf('TinyCache\Collection', $items);
+        $this->assertInstanceOf(Collection::class, $items);
 
         $getItem = $adapter->getItem('hi1');
-        $this->assertInstanceOf('TinyCache\Item', $getItem);
+        $this->assertInstanceOf(Item::class, $getItem);
         $getItem = $adapter->getItem('hi');
 
         $adapter->hasItem('hi1');

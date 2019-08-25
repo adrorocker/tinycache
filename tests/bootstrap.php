@@ -2,7 +2,7 @@
 /**
  * TinyCache.
  *
- * @link      https://github.com/adrorocker/php-firebase
+ * @link      https://github.com/adrorocker/tiny-cache
  *
  * @copyright Copyright (c) 2017 Adro Rocker
  * @author    Adro Rocker <alejandro.morelos@jarwebdev.com>
