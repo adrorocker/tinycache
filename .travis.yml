@@ -4,26 +4,14 @@ php:
   - 5.6
   - 7.0
   - 7.1
-  - hhvm
-
-sudo: required
+  - 7.2
+  - 7.3
 
 install: composer install
 
-before_script:
-  # navigate out of module directory to prevent blown stack by recursive module lookup
-  - wget https://phar.phpunit.de/phpunit.phar
-  - chmod +x phpunit.phar
-  - sudo mv phpunit.phar /usr/local/bin/phpunit
-  - phpunit --version
-
-  - wget http://getcomposer.org/composer.phar
-  - php composer.phar install
-  - php composer.phar require satooshi/php-coveralls
-
 script:
   - mkdir -p build/logs
-  - phpunit -c phpunit.xml.dist
+  - vendor/bin/phpunit -c phpunit.xml.dist
 
 after_script:
   - if [[ "$TRAVIS_PHP_VERSION" == '5.6' ]]; then travis_retry php vendor/bin/coveralls -v; fi

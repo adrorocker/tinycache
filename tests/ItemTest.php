@@ -17,7 +17,7 @@ class ItemTest extends TestCase
     public function testItem()
     {
         $item = new Item('key1', 'Hola');
-        $this->assertInstanceOf('TinyCache\Item', $item);
+        $this->assertInstanceOf(Item::class, $item);
 
         $key = $item->getKey();
         $this->assertSame('key1', $key);

@@ -18,16 +18,16 @@ class CacheTest extends TestCase
     public function testTinyCache()
     {
         $adapter = new FilesystemAdapter();
-        $this->assertInstanceOf('TinyCache\Adapter\FilesystemAdapter', $adapter);
+        $this->assertInstanceOf(FilesystemAdapter::class, $adapter);
 
         $cache = new Cache($adapter);
-        $this->assertInstanceOf('TinyCache\Cache', $cache);
+        $this->assertInstanceOf(Cache::class, $cache);
 
         $item1 = new Item('hi1', 'Hola');
-        $this->assertInstanceOf('TinyCache\Item', $item1);
+        $this->assertInstanceOf(Item::class, $item1);
 
         $item2 = new Item('hi2', 'Hola');
-        $this->assertInstanceOf('TinyCache\Item', $item2);
+        $this->assertInstanceOf(Item::class, $item2);
 
         $cache->saveDeferred($item1);
 
@@ -36,10 +36,10 @@ class CacheTest extends TestCase
         $cache->save($item2);
 
         $items = $cache->getItems(['hi1', 'hi2']);
-        $this->assertInstanceOf('TinyCache\Collection', $items);
+        $this->assertInstanceOf(Collection::class, $items);
 
         $getItem = $cache->getItem('hi1');
-        $this->assertInstanceOf('TinyCache\Item', $getItem);
+        $this->assertInstanceOf(Item::class, $getItem);
 
         $cache->hasItem('hi1');
         $cache->deleteItem('hi1');
